@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+    <script>(function(){document.documentElement.dataset.theme=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"})()</script>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <header class="container">
+    {{ partial "header.html" . }}
+  </header>
+  <main class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="container" style="border-top:1px solid #777;">
+    {{ partial "footer.html" . }}
+  </footer>
+</body>
+</html>
+

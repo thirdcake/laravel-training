@@ -1,0 +1,17 @@
+{{ if eq .Type "alert" }}
+    <div class="alert alert-{{ .AlertType }}">
+        <p class="alert-icon">
+            <svg viewBox="0 0 16 16" style="width:1.5rem;height:auto;">
+                <use href="{{ relURL "imgs/icons.svg" }}#alert-{{ .AlertType}}"></use>
+            </svg>
+        {{ with .AlertType }}
+            <span>{{ humanize . }}</span>
+        {{ end }}
+        </p>
+        {{ .Text }}
+    </div>
+{{ else }}
+    <blockquote>
+        {{ .Text }}
+    </blockquote>
+{{ end }}

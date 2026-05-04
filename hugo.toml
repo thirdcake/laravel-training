@@ -1,0 +1,49 @@
+baseURL = 'https://laravel.thirdcake.com/'
+locale = 'ja-jp'
+title = 'Laravel 演習入門'
+enableRobotsTXT = true
+hasCJKLanguage = true
+
+[outputs]
+    home = ['html', 'rss']
+    page = ['html']
+    rss = ['rss']
+    section = ['html']
+    taxonomy = ['html']
+    term = ['html']
+
+[params]
+    [params.social]
+        twitter = 'g222tech'
+
+[taxonomies]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+
+  [[menus.main]]
+    name = '問題'
+    pageRef = '/tasks/'
+    weight = 20
+
+  [[menus.main]]
+    name = '知識'
+    pageRef = '/knowledge/'
+    weight = 30
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = '0.146.0'
+
+
+
+
