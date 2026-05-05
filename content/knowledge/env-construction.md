@@ -1,7 +1,7 @@
 ---
 title: '環境構築について'
 date: '2026-05-04T17:47:51+09:00'
-draft: true
+draft: false
 ---
 
 > [!Note]
@@ -106,9 +106,9 @@ artisan コマンドが動くかどうか、試してみましょう。
 bash:
 
 ```bash
-php artisan about
+php artisan --version
 ```
 
-Laravel のバージョンやアプリケーション概要の情報が表示されれば、成功です！
+Laravel のバージョン情報が表示されれば、成功です！
 
 

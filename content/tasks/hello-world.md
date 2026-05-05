@@ -3,6 +3,8 @@ title: 'Hello World'
 date: '2026-05-04T08:59:18+09:00'
 draft: false
 weight: 10
+params:
+    subtitle: 'Routing の基礎'
 ---
 
 ## 問題
@@ -32,11 +34,25 @@ bash:
 php artisan make:test HelloTest
 ```
 
-テストを編集します。  
+作成されたテストファイルを編集します。  
 tests/Feature/HelloTest.php:
 
 ```php
+<?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class HelloTest extends TestCase
+{
+    public function test_hello_world(): void
+    {
+        $response = $this->get('/hello');
+
+        $response->assertSeeText('Hello World!');
+    }
+}
 ```
 
 テストを実行します。  
@@ -46,7 +62,8 @@ bash:
 php artisan test tests/Feature/HelloTest.php
 ```
 
-テストが失敗し、赤い表示になることを確認します。
+テストが失敗し、赤い表示になることを確認します。  
+（たくさんエラーが出てきて驚くかもしれませんが、それが普通なので先に進みます。）
 
 ### Green
 
@@ -54,10 +71,17 @@ php artisan test tests/Feature/HelloTest.php
 routes/web.php:
 
 ```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/hello', function () {
+    return 'Hello World!';
+});
 
 ```
 
-テストを実行します。  
+テストを再度実行します。  
 bash:
 
 ```bash
@@ -68,7 +92,7 @@ php artisan test tests/Feature/HelloTest.php
 
 ### Refactor
 
-今回は、特に必要ありません。
+今回は、文字列を返しただけなので、特に必要ありません。
 
 </details>
 
@@ -79,12 +103,26 @@ php artisan test tests/Feature/HelloTest.php
 
 ### 環境構築について
 
-いきなり、環境構築は難しいかもしれませんが、 Laravel 単体であれば、入門者でも比較的作成可能と思います。
+知らない分野で、いきなり環境構築は難しいかもしれませんが、 Laravel 単体であれば、入門者でも比較的簡単に作成可能と思います。
 
 当サイトでのオススメの構築方法は、 [環境構築について](/knowledge/env-constructure/) をお読みください。
 
-### テスト作成について
+### テストについて
 
+テストに馴染みのない方も多いと思うので、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
+
+### ルーティングについて
+
+ルーティングは、 web アプリの入り口です。  
+このファイルが、その後の処理の方向づけを決めます。
+
+> [!Note]
+> なお、その web アプリのすべてのルーティングを調べるには、 `php artisan route:list` というコマンドがあります。  
+> 大変便利なコマンドです。
+
+今回は、単に文字列を返すだけでしたが、実際の web アプリでは、そのようなことはほとんど無いだろうと思います。
+
+コントローラーの基本的な作り方は、 [Inspiring Quote](/tasks/inspiring-quote/) へ進んでください。
 
 
 </details>
