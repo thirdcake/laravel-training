@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ range .Pages }}
+    <article style="display:flex;justify-content: flex-start;align-items:center;gap:.7em;">
+      <svg viewBox="0 0 16 16" style="width:1.1em;height:auto;">
+        <use data-rel-link="{{ .RelPermalink }}" href="/imgs/icons.svg#square"></use>
+      </svg>
+      {{ if .Params.subtitle }}
+        <div>
+          <h2 style="margin-block:0;">
+            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </h2>
+          <p style="margin-block:0;">{{ .Params.subtitle }}</p>
+        </div>
+      {{ else }}
+        <h2 style="margin-block:0;"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+      {{ end }}
+    </article>
+  {{ end }}
+{{ end }}

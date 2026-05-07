@@ -12,7 +12,7 @@
   {{ $dateHuman := .Date | time.Format ":date_long" }}
   <p style="text-align:end;">
     <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-  <p>
+  </p>
 
   {{ .Content }}
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}

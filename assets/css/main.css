@@ -9,8 +9,12 @@
     --bs-primary-bg-subtle: #cfe2ff;
     --bs-primary-border-subtle: #9ec5fe;
 }
+code {
+    word-break:break-all;
+}
 pre > code {
     color: #f8f8f2;
+    word-break:normal;
 }
 .alert {
     margin-bottom: var(--pico-block-spacing-vertical);
@@ -35,4 +39,3 @@ pre > code {
 .alert-note a {
     color: var(--bs-primary-text-emphasis);
 }
-

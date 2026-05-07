@@ -5,13 +5,13 @@
   {{ partial "head.html" . }}
 </head>
 <body>
-  <header class="container">
+  <header class="container" style="max-width:40rem;">
     {{ partial "header.html" . }}
   </header>
-  <main class="container">
+  <main class="container" style="max-width:40rem;">
     {{ block "main" . }}{{ end }}
   </main>
-  <footer class="container" style="border-top:1px solid #777;">
+  <footer class="container" style="max-width:40rem;">
     {{ partial "footer.html" . }}
   </footer>
 </body>
