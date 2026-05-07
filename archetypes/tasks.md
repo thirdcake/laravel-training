@@ -15,6 +15,13 @@ params:
 1. Refactor: 整理・整頓してください
 1. 必要に応じて、1から3を繰り返してください
 
+## ヒント
+
+
+<details>
+<summary role="button" class="outline"></summary>
+</details>
+
 ## 解答例
 
 <details>

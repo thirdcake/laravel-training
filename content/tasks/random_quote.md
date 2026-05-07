@@ -1,5 +1,5 @@
 ---
-title: 'Inspiring Quote'
+title: 'Random Quote'
 date: '2026-05-05T08:40:59+09:00'
 draft: false
 weight: 50
@@ -9,7 +9,7 @@ params:
 
 ## 問題
 
-`/inspire` にアクセスすると、ランダムに名言を出力する web アプリを作成してください。
+`/random` にアクセスすると、ランダムに名言を出力する web アプリを作成してください。
 
 1. Red: 小さいテストを作成し、失敗を確認してください
 1. Green: テストを成功させてください
@@ -17,25 +17,19 @@ params:
 1. 必要に応じて、1から3を繰り返してください
 
 > [!Note]
-> この問題は、 Laravel に昔から実装されている `php artisan inspire` 機能を利用するものです。  
-> `use Illuminate\Foundation\Inspiring;` した上で、 `Inspiring::quotes()` で、 Collection 型の名言集が返されます。  
-> 将来的に、 Laravel からこの機能が削除された場合は、以下の配列をコピーして使ってください。
+> この問題は、 Laravel に昔から実装されている `php artisan inspire` 機能を利用すると実装が楽です。  
+> [class Inspiring についてはこちら](/knowledge/inspiring-php-class/) 。
+
+## ヒント
 
 <details>
-<summary role="button" class="outline">配列</summary>
+<summary role="button" class="outline">名言の出し方</summary>
 
-```php
-[
-    'Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant',
-    'An unexamined life is not worth living. - Socrates',
-    'Be present above all else. - Naval Ravikant',
-    'Do what you can, with what you have, where you are. - Theodore Roosevelt',
-    'Happiness is not something readymade. It comes from your own actions. - Dalai Lama',
-    'He who is contented is rich. - Laozi',
-];
-```
+Laravel に昔から実装されている `php artisan inspire` を利用してください。  
+[class Inspiring についてはこちら](/knowledge/inspiring-php-class/) 。
 
 </details>
+
 
 ## 解答例
 
@@ -47,15 +41,10 @@ params:
 - PHP 8.4
 - PHPUnit
 
-### 事前準備
+### Red: `/random` へのルーティング
 
-`/inspire` へのルーティングと、 `tests/Feature/InspiringTest.php` テストを作成し、テストを成功させておいてください。  
-bash:
 
-> [!Note]
-> ルーティング部分が分からない場合は、 [Hello World](/tasks/hello-world/) を参照してください。
-
-### Red
+### Red: 表示内容が Quotes Collection に含まれるか
 
 テストを書き、実行し、失敗を確認します。  
 tests/Feature/InspiringTest.php

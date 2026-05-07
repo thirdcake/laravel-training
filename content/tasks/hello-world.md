@@ -1,6 +1,6 @@
 ---
-title: 'Hello World'
-date: '2026-05-04T08:59:18+09:00'
+title: 'Hello World!'
+date: '2026-05-07T08:59:18+09:00'
 draft: false
 weight: 10
 params:
@@ -16,6 +16,43 @@ params:
 1. Refactor: 整理・整頓してください
 1. 必要に応じて、1から3を繰り返してください
 
+## ヒント
+
+
+<details>
+<summary role="button" class="outline">環境構築</summary>
+
+知らない分野で、いきなり環境構築は難しいかもしれませんが、 Laravel 単体であれば、入門者でも比較的簡単に作成可能と思います。
+
+当サイトでのオススメの構築方法は、 [環境構築について](/knowledge/env-constructure/) をお読みください。
+
+</details>
+
+<details>
+<summary role="button" class="outline">テストについて</summary>
+
+テストに馴染みのない方向けに、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
+
+</details>
+
+<details>
+<summary role="button" class="outline">便利なアサーションの例</summary>
+
+[アサーションの例](/knowledge/assertions-list) も合わせてご覧ください。  
+今回は、以下を使うのではないかと思います。
+
+- assertStatus($code)（HTTPステータスコードが$codeに等しいか）
+- assertSeeText($value)（テキストコンテンツに$valueが含まれるか）
+
+</details>
+
+<details>
+<summary role="button" class="outline">ルーティングファイルの位置</summary>
+
+ルーティングファイルは、 `routes/web.php` にあります。
+
+</details>
+
 ## 解答例
 
 <details>
@@ -26,9 +63,15 @@ params:
 - PHP 8.4
 - PHPUnit
 
-### Red
+> [!Note]
+> この問題は、最初の問題なので、特に小さいステップで進めます。  
+> ここまで細かくなくて良いよという方は、 Red2 から読んでください。
 
-feature テストを作ります。  
+### Red1: `/hello` で HTTP ステータスコード200を返すか
+
+いきなり `Hello World!` の文字列確認を試しても良いのですが、その前段の、 HTTP ステータスコード200（成功）を返すかどうかを、まずはテストしてみます。
+
+Feature テストを作ります。  
 bash:
 
 ```bash
@@ -47,11 +90,10 @@ use Tests\TestCase;
 
 class HelloTest extends TestCase
 {
-    public function test_hello_world(): void
+    public function test_response_code_200(): void
     {
         $response = $this->get('/hello');
-
-        $response->assertSeeText('Hello World!');
+        $response->assertStatus(200);
     }
 }
 ```
@@ -66,7 +108,7 @@ php artisan test tests/Feature/HelloTest.php
 テストが失敗し、赤い表示になることを確認します。  
 （たくさんエラーが出てきて驚くかもしれませんが、それが普通なので先に進みます。）
 
-### Green
+### Green1
 
 ルーティングを作成します。  
 routes/web.php:
@@ -77,7 +119,7 @@ routes/web.php:
 use Illuminate\Support\Facades\Route;
 
 Route::get('/hello', function () {
-    return 'Hello World!';
+    return 'この時点では、何を返しても良い';
 });
 
 ```
@@ -91,9 +133,53 @@ php artisan test tests/Feature/HelloTest.php
 
 テストが成功し、緑色になったことを確認します。
 
-### Refactor
+### Refactor1
 
-今回は、文字列を返しただけなので、特に必要ありません。
+整理するところはありません。
+
+### Red2: `Hello World!` を返すか
+
+無事、`/hello` が表示されていることが確認できたので、次にその表示されている内容が `Hello World!` かどうかを判定するテストを書きます。
+
+テストを書き加えます。  
+tests/Feature/HelloTest.php:
+
+```php
+    public function test_hello_world(): void
+    {
+        $response = $this->get('/hello');
+        $response->assertSeeText('Hello World!');
+    }
+```
+
+テストの失敗を確認します。  
+bash:
+
+```bash
+php artisan test tests/Feature/HelloTest.php
+```
+
+### Green2
+
+ルーティングファイルを書き換えます。  
+routes/web.php:
+
+```php
+Route::get('/hello', function () {
+    return 'Hello World!';
+});
+```
+
+テストの成功を確認します。  
+bash:
+
+```bash
+php artisan test tests/Feature/HelloTest.php
+```
+
+### Refactor2
+
+特に整理整頓の必要はありません。
 
 </details>
 
@@ -101,16 +187,6 @@ php artisan test tests/Feature/HelloTest.php
 
 <details>
 <summary role="button" class="secondary">続きを読む</summary>
-
-### 環境構築について
-
-知らない分野で、いきなり環境構築は難しいかもしれませんが、 Laravel 単体であれば、入門者でも比較的簡単に作成可能と思います。
-
-当サイトでのオススメの構築方法は、 [環境構築について](/knowledge/env-constructure/) をお読みください。
-
-### テストについて
-
-テストに馴染みのない方も多いと思うので、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
 
 ### ルーティングについて
 
@@ -121,10 +197,8 @@ php artisan test tests/Feature/HelloTest.php
 > なお、その web アプリのすべてのルーティングを調べるには、 `php artisan route:list` というコマンドがあります。  
 > 大変便利なコマンドです。
 
-今回は、単に文字列を返すだけでしたが、実際の web アプリでは、そのようなことはほとんど無いだろうと思います。
-
-コントローラーの基本的な作り方は、 [Inspiring Quote](/tasks/inspiring-quote/) へ進んでください。
-
+今回は、短い文字列を返すだけでしたが、実際の web アプリでは、そのようなことはほとんど無いだろうと思います。  
+今後の問題で、処理が複雑になった場合の書き方を学んでいきます。
 
 </details>
 

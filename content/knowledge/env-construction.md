@@ -99,6 +99,14 @@ bash:
 git restore .
 ```
 
+もし戻らなくなってしまっても大丈夫です。  
+再度、composer create-project してください。  
+bash:
+
+```bash
+composer create-project laravel/laravel your-new-laravel-name
+```
+
 ## Laravel が動くかどうか確認
 
 無事に Laravel がインストールされているか、確認します。  
@@ -107,8 +115,10 @@ bash:
 
 ```bash
 php artisan --version
+php artisan about
+php artisan inspire
 ```
 
-Laravel のバージョン情報が表示されれば、成功です！
+それぞれ、 Laravel のバージョン情報や、基本情報、ランダムな名言集などが表示されれば、成功です！
 
 
