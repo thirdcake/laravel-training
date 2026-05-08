@@ -38,14 +38,11 @@ class LaravelTrainingTest extends TestCase
 
 ## 環境構築
 
-- Docker / Sail / Herd 要りません
-- MySql / PostgreSQL 要りません
+あらゆるプログラミングの入門者にとって、最初の難関は、その環境構築です。
 
-問題を解くだけなら Laravel のバージョンも問いません。
+当サイトオススメの環境構築方法を [環境構築について](/knowledge/env-construction/) のページにまとめています。
 
-解答例と同じ出力にしたい場合は、その解答のバージョンに合わせてください。
-
-当サイトオススメの環境構築方法を [こちらのページ](/knowledge/env-construction/) にまとめています。
+基本的には、 Laravel さえ動かせれば OK となるようにしていますので、多少は他のサイトよりもハードルが低いと思います。
 
 ## テストって難しいの？
 
@@ -55,7 +52,7 @@ class LaravelTrainingTest extends TestCase
 Laravel に入門するために、小さいテストを利用するだけのことです。  
 そして Laravel には、テストできる環境が、最初から整っています。
 
-詳しくは、 [こちらのページ](/knowledge/what-is-test/) にまとめています。
+詳しくは、 [テストについて](/knowledge/what-is-test/) のページにまとめています。
 
 ## 気楽に
 
@@ -63,6 +60,6 @@ Laravel 作者の Taylor Otwel さんも言っています。
 
 > We must ship.
 
-とりあえず出港してみる、くらいの気持ちで気軽に始めてください。  
-最初の問題は、 [Hello World](/tasks/hello-world/) です。
+とりあえず出港してみるくらいの気持ちで、気軽に始めてみてください。  
+最初の問題は、 [Hello World](/tasks/routing-1/) です。
 

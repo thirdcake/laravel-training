@@ -23,8 +23,6 @@ bash:
 php artisan test tests/Feature/Http/Controller/PostControllerTest.php
 ```
 
-[公式ドキュメント](https://laravel.com/docs/testing) は、とても参考になります。
-
 ### テストの作り方
 
 `php artisan make:test` コマンドで、テストのひな型を作ってくれます。  
@@ -61,9 +59,8 @@ PHPUnit には、いくつかの命名規約（ルール）があります。
 比較的新しい書き方として、 `#[Test]` というアトリビュートを書く方法もあり、今後そちらがスタンダードになるかもしれません。  
 その場合、メソッド名を test で始める必要はなくなります。
 
-期待どおりかを判定するのは、アサーション（assertions）というメソッド群を使うのですが、 [公式ドキュメント](https://docs.phpunit.de/en/13.1/assertions.html) の記述は難しいので、一般的によく使われているものを「PHPUnit アサーション一覧」などで Google 検索した方が、役に立つかもしれません。
-
-また、 Laravel 独自のアサーションメソッドもあり、これらは Laravel 公式サイトで調べることができます。
+期待どおりかを判定するのは、アサーション（assertions）というメソッド群を使います。  
+[アサーションの調べ方](/knowledge/assertions-list/) を参照してください。
 
 ## レッド・グリーン・リファクタリングとは
 

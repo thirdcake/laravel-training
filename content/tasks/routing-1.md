@@ -31,18 +31,18 @@ params:
 <details>
 <summary role="button" class="outline">テストについて</summary>
 
-テストに馴染みのない方向けに、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
+当サイトで使うレベルのテストについては、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
 
 </details>
 
 <details>
 <summary role="button" class="outline">便利なアサーションの例</summary>
 
-[アサーションの例](/knowledge/assertions-list) も合わせてご覧ください。  
+[アサーションの調べ方](/knowledge/assertions-list) も合わせてご覧ください。  
 今回は、以下を使うのではないかと思います。
 
-- assertStatus($code)（HTTPステータスコードが$codeに等しいか）
-- assertSeeText($value)（テキストコンテンツに$valueが含まれるか）
+- TestResponse->assertStatus($code)（HTTPステータスコードが$codeに等しいか）
+- TestResponse->assertSeeText($value)（テキストコンテンツに$valueが含まれるか）
 
 </details>
 
@@ -97,6 +97,9 @@ class HelloTest extends TestCase
     }
 }
 ```
+
+`$response->assertStatus(200);` は、最初から書いてあると思うので、編集するのはメソッド名だけです。  
+test で始めることを忘れないでください。
 
 テストを実行します。  
 bash:
@@ -177,6 +180,9 @@ bash:
 php artisan test tests/Feature/HelloTest.php
 ```
 
+> [!Note]
+> 全部が緑になった！ という達成感を感じてくれたら、うれしいです。
+
 ### Refactor2
 
 特に整理整頓の必要はありません。
@@ -198,7 +204,7 @@ php artisan test tests/Feature/HelloTest.php
 > 大変便利なコマンドです。
 
 今回は、短い文字列を返すだけでしたが、実際の web アプリでは、そのようなことはほとんど無いだろうと思います。  
-今後の問題で、処理が複雑になった場合の書き方を学んでいきます。
+これから、処理が複雑になっていくので、その書き方を学んでいきます。
 
 </details>
 

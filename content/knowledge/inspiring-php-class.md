@@ -18,7 +18,7 @@ php artisan inspire
 なんのためにあるのかは、調べても分からなかったのですが、この機能は昔からあったそうです。  
 今後も残るだろうと思っています。
 
-当サイトでは、 Model や Seeder の使い方を学ぶときに、この機能を使います。
+当サイトでは、 Model などの使い方を学ぶときに、この機能を使います。
 
 ## 名言はどこにある？
 
@@ -38,7 +38,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 ```
 
-`Illuminate\Foundation\Inspiring::quote()` を出力していることが分かります。
+`\Illuminate\Foundation\Inspiring::quote()` を出力していることが分かります。
 
 では、この Inspiring クラスはどこにあるのでしょうか？
 

@@ -19,7 +19,13 @@ params:
 
 
 <details>
-<summary role="button" class="outline"></summary>
+<summary role="button" class="outline">便利なアサーションの例</summary>
+
+[アサーションの調べ方](/knowledge/assertions-list) も合わせてご覧ください。  
+今回は、以下を使うのではないかと思います。
+
+
+
 </details>
 
 ## 解答例
