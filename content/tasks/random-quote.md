@@ -1,5 +1,5 @@
 ---
-title: 'Random Quote'
+title: 'ランダムな名言'
 date: '2026-05-05T08:40:59+09:00'
 draft: false
 weight: 50

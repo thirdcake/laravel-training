@@ -1,10 +1,10 @@
 ---
-title: 'Count Legends'
+title: '偉人を数える'
 date: '2026-05-08T10:29:31+09:00'
-draft: true
-weight: 150
+draft: false
+weight: 350
 params:
-    subtitle: 'モデル・シーダーの基礎'
+    subtitle: 'Seeding の基礎'
 ---
 
 ## 問題

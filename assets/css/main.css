@@ -16,6 +16,9 @@ pre > code {
     color: #f8f8f2;
     word-break:normal;
 }
+main {
+    line-height: 1.7;
+}
 .alert {
     margin-bottom: var(--pico-block-spacing-vertical);
     padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
