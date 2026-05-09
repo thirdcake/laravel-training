@@ -25,5 +25,5 @@ draft: false
 
 ... とはいえ、やってみないと分からないことも多いでしょう。
 
-最初の問題である [Hello World](/tasks/routing-1/) を解いてみて、実感してみてください。
+最初の問題である [Hello World](/tasks/hello-world/) を解いてみて、実感してみてください。
 

@@ -1,7 +1,7 @@
 ---
 title: 'Inspiring PHP クラス'
 date: '2026-05-07T17:18:11+09:00'
-draft: true
+draft: false
 ---
 
 ## Laravel に昔からある謎のコマンド

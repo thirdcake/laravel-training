@@ -42,7 +42,7 @@ class LaravelTrainingTest extends TestCase
 
 当サイトオススメの環境構築方法を [環境構築について](/knowledge/env-construction/) のページにまとめています。
 
-基本的には、 Laravel さえ動かせれば OK となるようにしていますので、多少は他のサイトよりもハードルが低いと思います。
+基本的には、 Laravel さえ動かせれば OK となるようにしていますので、多少、ハードルは低いと思います。
 
 ## テストって難しいの？
 
@@ -61,5 +61,5 @@ Laravel 作者の Taylor Otwel さんも言っています。
 > We must ship.
 
 とりあえず出港してみるくらいの気持ちで、気軽に始めてみてください。  
-最初の問題は、 [Hello World](/tasks/routing-1/) です。
+最初の問題は、 [Hello World](/tasks/hello-world/) です。
 
