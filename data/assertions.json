@@ -1,0 +1,37 @@
+{
+    "assertTrue": {
+        "args": "$condition",
+        "text": "$condition が true か",
+        "src": "PHPUnit"
+    },
+    "assertContains": {
+        "args": "$needle, $haystack",
+        "text": "$haystack に $needle が見つかるか",
+        "src": "PHPUnit"
+    },
+    "assertCount": {
+        "args": "$int, $countable",
+        "text": "$countable の個数が $int に等しいか",
+        "src": "PHPUnit"
+    },
+    "assertSeeText": {
+        "args": "$value",
+        "text": "テキストコンテンツに $value が含まれるか",
+        "src": "HTTP テスト"
+    },
+    "assertStatus": {
+        "args": "$code",
+        "text": "HTTP ステータスコードが $code に等しいか",
+        "src": "HTTP テスト"
+    },
+    "assertDatabaseCount": {
+        "args": "$table_name, $int",
+        "text": "$table_name テーブルに $int 個のデータが入っているか",
+        "src": "Database テスト"
+    },
+    "assertDatabaseEmpty": {
+        "args": "$table_name",
+        "text": "$table_name テーブルが空か",
+        "src": "Database テスト"
+    }
+}

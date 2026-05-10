@@ -1,0 +1,9 @@
+{{ $name := .Get 0 }}
+{{ $data := index hugo.Data.assertions $name }}
+
+{{- if $data }}
+    <div>{{ $name }}({{ $data.args }})（{{ $data.src }} : {{ $data.text }}）</div>
+{{ else }}
+    <div style="font-weight:bold;color:red;">Error: {{ $name }} Not Found.</div>
+{{ end }}
+

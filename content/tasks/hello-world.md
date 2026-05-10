@@ -11,10 +11,7 @@ params:
 
 `/hello` にアクセスすると、 `Hello World!` が表示される web アプリを作成してください。
 
-1. Red: 小さいテストを作成し、失敗を確認してください
-1. Green: テストを成功させてください
-1. Refactor: 整理・整頓してください
-1. 必要に応じて、1から3を繰り返してください
+{{< tdp-rgr >}}
 
 ## ヒント
 
@@ -41,8 +38,8 @@ params:
 [アサーションの調べ方](/knowledge/assertions-list) も合わせてご覧ください。  
 今回は、以下を使うのではないかと思います。
 
-- TestResponse->assertStatus($code)（HTTPステータスコードが$codeに等しいか）
-- TestResponse->assertSeeText($value)（テキストコンテンツに$valueが含まれるか）
+- {{< assertion "assertStatus" >}}
+- {{< assertion "assertSeeText" >}}
 
 </details>
 

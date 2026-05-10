@@ -1,18 +1,15 @@
 ---
 title: '偉人は名言を言った'
 date: '2026-05-09T17:55:28+09:00'
-draft: true
-weight: 400
+draft: false
+weight: 550
 params:
     subtitle: 'Model の基礎'
 ---
 
 ## 問題
 
-名言のデータベースを作ろうとしています。  
-`Quote` Eloquent モデルと、 `quotes` テーブルを作成してください。  
-テーブルには、 TEXT 型の `quote` カラムを追加してください。  
-`\Illuminate\Foundation\Inspiring::quotes()` で出力される名言をすべて、初期値としてデータベースに保存してください。
+以下のような
 
 1. Red: 小さいテストを作成し、失敗を確認してください
 1. Green: テストを成功させてください

@@ -12,10 +12,7 @@ params:
 名言を CRUD 操作するサイトを作ろうとしています。  
 Quote （名言）に関する Eloquent モデルと、それに対応するテーブルを作り、初期値として、そのデータの個数がゼロであることを確かめてください。
 
-1. Red: 小さいテストを作成し、失敗を確認してください
-1. Green: テストを成功させてください
-1. Refactor: 整理・整頓してください
-1. 必要に応じて、1から3を繰り返してください
+{{< tdp-rgr >}}
 
 ## ヒント
 
@@ -43,7 +40,7 @@ php artisan make:model Xxx --migration
 
 `--migration` オプションは、短縮して `-m` とも書けます。
 
-詳しくは、モデル作成のヘルプを見ると良いです。  
+詳しくは、モデル作成のヘルプを確認してください。  
 bash:
 
 ```bash
@@ -58,7 +55,7 @@ php artisan make:model --help
 [アサーションの調べ方](/knowledge/assertions-list) も合わせてご覧ください。  
 今回は、以下を使うのではないかと思います。
 
-- `phpunit\TestCase->assertCount($int, $countable)`（ `$countable`の個数が `$int` に等しい）
+- {{< assertion "assertCount" >}}
 
 </details>
 
@@ -138,7 +135,18 @@ php artisan test ./tests/Feature/App/Models/QuoteTest.php
 
 ### Eloquent モデルについて
 
+Eloquent とは、 Laravel に最初から入っているデータベース ORM です。  
+Eloquent モデルにメソッドを実装し、そのメソッドの実行によって、データベースを操作します。
 
+今回の問題では、内部実装をしませんでしたが、これからこのモデルをたくさん使います。
+
+Eloquent によるデータベース操作は、生の SQL よりも遅いようです。  
+それでもなお、このモデルを使う理由は、その可読性の高さや、利用しやすさなのでしょう。
+
+Eloquent の意味は、「雄弁な」とか「表現力の高い」という意味です。  
+なので、 Laravel に慣れ親しむなら、 Eloquent を自在に操る必要があります。
+
+外国語を学ぶ時と一緒で、たくさん読んで、使って、慣れていくのがよいと思います。
 
 </details>
 

@@ -1,6 +1,6 @@
 ---
 title: 'テストについて'
-date: '2026-05-04T19:04:28+09:00'
+date: '2026-05-10T09:04:28+09:00'
 draft: false
 ---
 
@@ -11,19 +11,20 @@ draft: false
 プログラムを書いたとき、その動作が期待どおりかを確認することを「テスト」と呼びます。  
 この確認を、自動で効率よく行うためのツールとして、PHPUnit や Pest といったテストフレームワークがあります。
 
-### Laravel はテストを始めやすい
+## Laravel はテストを始めやすい
 
-Laravel には最初から PHPUnit や Pest が使えます。  
-`php artisan test` コマンドが用意されており、実行すると `tests/` ディレクトリ以下のテストファイルを、全自動でまとめてテストしてくれます。
+Laravel では、最初から PHPUnit や Pest が使えます。
 
-ディレクトリやファイルを指定して、部分的にテストすることも可能です。  
-bash:
+基本的な手順は、次の通りです：
 
-```bash
-php artisan test tests/Feature/Http/Controller/PostControllerTest.php
-```
+1. artisan コマンドでテストのひな型ファイルを作成する
+1. テストファイルを編集する
+1. テストを実行する
 
-### テストの作り方
+### Feature テストファイルの作り方
+
+まずは、 Laravel の機能を使う Feature テストの作り方を覚えましょう。  
+（慣れてきたら、ヘルプなどを使って Unit テストの方法も調べてください）
 
 `php artisan make:test` コマンドで、テストのひな型を作ってくれます。  
 テストディレクトリは、Laravel と同じ階層構造にしておくと、便利です。
@@ -34,36 +35,88 @@ php artisan make:test Http/Controllers/PostControllerTest
 # => tests/Feature/Http/Controllers/PostControllerTest.php が作成される
 ```
 
-```bash
-# app/Model/UserModel.php の Unit テストを書きたい
-php artisan make:test --unit Model/UserModelTest
-# => tests/Unit/Model/UserModelTest.php が作成される
-```
+テスト名には、名前を付けるときのルール（命名規約）があります。
 
-コマンドのヘルプはこちらで確認できます：
+- 大文字で始めてください
+- 最後に `Test` を付けてください
+
+上記のように、 PostControllerTest だったり、 UserTest だったり、 HelloTest だったりします。
+
+このコマンドのヘルプは、以下で確認できます：
 
 ```bash
 php artisan make:test --help
 ```
 
-### PHPUnit
+### Feature テストファイルの書き方
 
-当サイトでは、 PHPUnit を使っています。  
+上記のコマンドで作成されたひな型のファイルは、 Laravel のバージョンによって、多少違うかもしれませんが、おおよそ以下のようになっているはずです。  
+tests/Feature/ExampleTest.php:
 
-PHPUnit には、いくつかの命名規約（ルール）があります。
+```php
+<?php
 
-1. ファイル名は、`XxxTest` のように、 Test で終わること
-1. class 名は、ファイル名に合わせること（make:test で作っていれば、自動でそうなっています）
-1. テストメソッドは、 `test` で始めること
+namespace Tests\Feature;
 
-比較的新しい書き方として、 `#[Test]` というアトリビュートを書く方法もあり、今後そちらがスタンダードになるかもしれません。  
-その場合、メソッド名を test で始める必要はなくなります。
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-期待どおりかを判定するのは、アサーション（assertions）というメソッド群を使います。  
-[アサーションの調べ方](/knowledge/assertions-list/) を参照してください。
+class ExampleTest extends TestCase
+{
+    public function test_example(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+}
+```
+
+- class名（`ExampleTest`）は、ファイル名に一致します
+- メソッド名は、 `test_` で初めます
+    - PHPUnit の命名規約です
+    - ただし、最近は `#[Test]` アトリビュートを使う方法もあり、今後アトリビュートが主流になってくると、メソッドの命名規則は無くなるかもしれません
+- テスト class は、 `Tests\TestCase` を extends します
+- `Tests\TestCase->assertXxxx` というアサーションメソッドがたくさんあります
+- `Tests\TestCase->get('/routing')` で `https://example.com/routing` にアクセスしたときのレスポンスに相当する `TestResponse` オブジェクトが得られます
+    - `TestRequest` オブジェクトから、さまざまなアサーションメソッドが使えます
+
+アサーションについては、 [アサーションの調べ方](/assertions-list/) も合わせてご確認ください。
+
+データベースをセットアップすることも可能です。  
+その場合は、 class の中で、 `use RefreshDatabase;` を利用します。
+
+```php
+class ExampleTest extends TestCase
+{
+    use RefreshDatabase;
+    public function test...
+}
+```
+
+### テストを実行する
+
+以下のコマンドで、 `tests/` ファイル内のすべてのテストファイルを、全自動で実行することが可能です。
+
+```bash
+php artisan test
+```
+
+また、特定のディレクトリ内のテストファイルすべてを実行したり、特定のファイルだけを実行することも可能です。
+
+```bash
+php artisan test ./tests/Feature/
+php artisan test ./tests/Feature/HelloTest.php
+```
 
 ## レッド・グリーン・リファクタリングとは
 
-当サイトで表示される「Red」「Green」「Refactor」は、本来はテスト駆動開発（TDD）で使われる用語です。  
+当サイトで表示される `Red`, `Green`,`Refactor` とは、本来テスト駆動開発（TDD）で使われる用語です。  
+簡単にいうと、以下の通りです：
+
+- Red: テストを作成・実行し、失敗を確認する
+- Green: 多少強引にでも、成功させる
+- Refactor: 読みやすく書き換えたり、重複処理を整理したりする
+
 詳しくは、 [テスト駆動入門](/knowledge/test-driven-primer/) を参照してください。
 
