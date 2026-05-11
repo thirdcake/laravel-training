@@ -1,0 +1,26 @@
+{{ define "main" }}
+  {{ if .Params.subtitle }}
+  <hgroup>
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Params.subtitle }}</p>
+  </hgroup>
+  {{ else }}
+  <h1>{{ .Title }}</h1>
+  {{ end }}
+
+  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+  {{ $dateHuman := .Date | time.Format ":date_long" }}
+  <p style="text-align:end;">
+    <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+  </p>
+
+  {{ .Content }}
+
+  <div style="padding-block:1rem;display:flex;justify-content:flex-start;align-items:flex-start;gap:1rem;">
+    <task-check url="{{ .RelPermalink }}"></task-check>
+    <div>&lt;= 問題を読んだ・理解した・解いたなどのチェックにご利用ください。クリックすると、チェックが変化します。</div>
+  </div>
+  <div style="">
+    <a href="/tasks/">問題一覧に戻る</a>
+  </div>
+{{ end }}
