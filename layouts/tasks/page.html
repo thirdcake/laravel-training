@@ -16,11 +16,12 @@
 
   {{ .Content }}
 
+  <hr>
   <div style="padding-block:1rem;display:flex;justify-content:flex-start;align-items:flex-start;gap:1rem;">
     <task-check url="{{ .RelPermalink }}"></task-check>
-    <div>&lt;= 問題を読んだ・理解した・解いたなどのチェックにご利用ください。クリックすると、チェックが変化します。</div>
+    <div>&lt;= 問題を読んだ・解いた・理解したなどのチェックにご利用ください。クリックすると、チェックが変化します。</div>
   </div>
-  <div style="">
-    <a href="/tasks/">問題一覧に戻る</a>
+  <div style="margin-top:1.7rem;display:flex;justify-content:center;align-items:center;">
+    <a role="button" href="/tasks/">問題一覧に戻る</a>
   </div>
 {{ end }}

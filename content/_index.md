@@ -2,10 +2,6 @@
 title: Home
 ---
 
-## 特徴
-
-すでにたくさんの Laravel 学習サイトがありますが、当サイトは、演習問題を解きながら Laravel に [テスト駆動入門](/knowledge/test-driven-primer/) するサイトです。
-
 ```php
 <?php
 
@@ -35,6 +31,11 @@ class LaravelTrainingTest extends TestCase
     }
 }
 ```
+
+## 特徴
+
+すでにたくさんの Laravel 学習サイトがありますが、当サイトは、演習問題を解きながら Laravel に [テスト駆動入門](/knowledge/test-driven-primer/) するサイトです。  
+利用上の注意点などは、 [当サイトについて](/about/) をお読みください。
 
 ## 環境構築
 
