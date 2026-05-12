@@ -14,6 +14,13 @@ params:
 
 ## ヒント
 
+<details>
+<summary role="button" class="outline">背景知識</summary>
+
+
+
+
+</details>
 
 <details>
 <summary role="button" class="outline">便利なアサーションの例</summary>

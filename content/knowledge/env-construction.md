@@ -12,7 +12,7 @@ draft: false
 当サイトで紹介している問題は、基本的に Apache などのサーバーを立ち上げたりせず、テストを行うだけです。  
 よって、「できるだけ簡単に、素早く、素の Laravel をセットアップすること」を優先します。
 
-- Docker / Sail / Herd 使いません
+- XAMPP / Docker / Sail / Herd 使いません
 - MySQL / PostgreSQL 使いません（SQLite3 を使います）
 
 必要なものは以下のとおりです。
@@ -26,8 +26,7 @@ draft: false
 
 ## インストール方法
 
-インストール方法は、 [冒頭で紹介したブログ記事](https://no-hack-no.life/post/2025-10-30-laravel-api-resource-tutorial/) を参考にしてください。
-
+インストール方法は、生成 AI に教えてもらった方が楽かもしれません。  
 Windows / Ubuntu:
 
 ```bash
@@ -54,8 +53,7 @@ brew install \
 
 ## 環境の確認方法
 
-以下のように確認できます。
-
+以下のコマンドを、1行ずつ実行してみてください。  
 bash:
 
 ```bash
@@ -68,8 +66,7 @@ sqlite3 -version
 
 ## Laravel のセットアップ
 
-Laravel をインストールする方法は、いくつかあるようですが、これも先ほどのブログ記事を参考に、 composer create-project コマンドを利用します。
-
+Laravel をインストールする方法は、いくつかあるようですが、上記のブログ記事を参考に、 composer create-project コマンドを利用します。  
 bash:
 
 ```bash
@@ -77,11 +74,11 @@ composer create-project laravel/laravel your-project-name
 cd your-project-name
 ```
 
-【your-project-name】の部分は、ディレクトリ名の規則に沿って、自由に決められます。
+【your-project-name】の部分は、ディレクトリ名として可能なものなら、自由に決められます。
 
 ## Git でバックアップ（必須ではないが便利）
 
-この時点で、素の状態の Laravel を Git に覚えさせておくと、間違った編集をしてしまったときにもとに戻せるので便利です。
+この時点で、素の状態の Laravel を Git に覚えさせておくと、間違った編集をしてしまったときに元に戻せるので便利です。  
 必須ではないのですが、もし Git がインストールされているなら、以下を実行してください：  
 bash:
 
@@ -99,12 +96,17 @@ bash:
 git restore .
 ```
 
-もし戻らなくなってしまっても大丈夫です。  
-再度、composer create-project してください。  
+ただし、ときどき、上記コマンドでも戻らないときがあります。  
+もし戻らなくなってしまっても、大丈夫です。  
+古い Laravel は削除して、再度、composer create-project してください。  
+ダウンロードに数分かかりますが、また素の Laravel が得られます。  
 bash:
 
 ```bash
-composer create-project laravel/laravel your-new-laravel-name
+cd ../
+rm -rf your-old-laravel
+composer create-project laravel/laravel your-new-laravel
+cd your-new-laravel
 ```
 
 ## Laravel が動くかどうか確認

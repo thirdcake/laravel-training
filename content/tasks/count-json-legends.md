@@ -9,22 +9,19 @@ params:
 
 ## 問題
 
-以下のような、偉人名リスト API を作成してください。
+`/api/legends/index` に GET リクエストを送ると、初期登録した偉人の名前の一覧を JSON 形式でレスポンスする偉人名リストアプリを作成してください。  
+そして、その人数が初期データの数と等しいことを確認してください。
 
-- エンドポイント `/api/legends/index` への GET リクエストに対して、登録済みの偉人の名前の一覧を json 形式でレスポンスしてください
-- 初期データは、 `Illuminate\Foundation\Inspiring::quotes()` の偉人名の部分を抽出し、データベースの users テーブルに seeding してください
-
-データベースのデータ数と、レスポンスされた json に記載されている偉人名の数が一致していることを確かめてください。
-
-{{ tdp-rgr }}
+{{< tdp-rgr >}}
 
 ## ヒント
 
 
 <details>
-<summary role="button" class="outline">用語の意味</summary>
+<summary role="button" class="outline">背景知識</summary>
 
-- json: オブジェクトや配列などのデータ構造を、文字列で表現する軽量なデータ交換フォーマット。元は JavaScript の表記に由来しますが、現在は PHP 含め、多くのプログラミング言語で、読み書き可能です。
+- [JSON](https://www.php.net/manual/ja/book.json.php) （PHP マニュアル）
+- 偉人たちの取得方法： [Inspiring php クラス](/knowledge/inspiring-php-class/)
 
 </details>
 
@@ -34,7 +31,8 @@ params:
 [アサーションの調べ方](/knowledge/assertions-list) も合わせてご覧ください。  
 今回は、以下を使うのではないかと思います。
 
-- 
+- {{< assertion "assertJson" >}}
+- {{< assertion "assertJsonCount" >}}
 
 </details>
 
@@ -47,6 +45,47 @@ params:
 - Laravel v13.7.0
 - PHP 8.4
 - PHPUnit
+
+以下の順番にテストを試していきます。
+
+1. 初期データ用 Seeder を作り、User::all() の数と偉人の数が等しいか
+1. `/api/legends/index` にアクセスして、 JSON が返ってくるか
+1. `/api/legends/index` にアクセスして、返ってきた JSON の個数が初期データの個数と同じか
+
+### （前処理）Inspiring::quotes() で偉人一覧を作り、その重複しない数を調べる
+
+人数が分かれば良いので、失敗だけする Unit テストを作ります。  
+bash:
+
+```bash
+php artisan make:test --unit InspiringTest
+```
+
+tests/Unit/InspiringTest.php:
+
+```php
+```
+
+テストを実行すると、失敗すると思いますが、「期待したものは0でしたが、実際はxxxでした」という記述が出てくるので、このxxxが、最終的に欲しい偉人の重複無しの人数です。  
+わたしの環境では、27人でしたので、以下、この人数を使います。
+
+### Red1: 初期データ用 Seeder を作り、User::all() の数と偉人の数が等しいか
+
+### Green1
+
+### Refactor1
+
+### Red2: `/api/legends/index` にアクセスして、 JSON が返ってくるか
+
+### Green2
+
+### Refactor2
+
+### Red3: `/api/legends/index` にアクセスして、返ってきた JSON の個数が初期データの個数と同じか
+
+### Green3
+
+### Refactor3
 
 </details>
 

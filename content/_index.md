@@ -11,7 +11,7 @@ title: Home
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use You;
 
@@ -42,7 +42,7 @@ class LaravelTrainingTest extends TestCase
 
 当サイトオススメの環境構築方法を [環境構築について](/knowledge/env-construction/) のページにまとめています。
 
-基本的には、 Laravel さえ動かせれば OK となるようにしていますので、多少、ハードルは低いと思います。
+とりえあず Composer さえ動けば、環境構築できると思いますので、多少、ハードルは低いと思います。
 
 ## テストって難しいの？
 

@@ -12,52 +12,17 @@ params:
 Laravel デフォルトの users テーブルに、偉人名を初期登録してください。  
 そして、 users テーブルにデータがその人数分登録されていることを確認してください。
 
-1. Red: 小さいテストを作成し、失敗を確認してください
-1. Green: テストを成功させてください
-1. Refactor: 整理・整頓してください
-1. 必要に応じて、1から3を繰り返してください
+{{< tdp-rgr >}}
 
 ## ヒント
 
 <details>
-<summary role="button" class="outline">偉人たちの取得方法</summary>
+<summary role="button" class="outline">背景知識</summary>
 
-Laravel に昔から実装されている `php artisan inspire` を利用してください。  
-[class Inspiring についてはこちら](/knowledge/inspiring-php-class/) 。
-
-`Inspiring::quotes()` で、名言と偉人の文字列を要素に持つ Collection が得られます。  
-たとえば、以下のように偉人名を要素とする Collection を取得できます。
-
-```php
-// '名言 - 偉人名' の文字列の集合なので：
-$authors = \Illuminate\Foundation\Inspiring::quotes()->map(function ($quote_author) => {
-    [$quote, $author] = explode('-', $quote_author);
-    $author = trim($author);
-    return $author;
-});
-```
+- 偉人たちの取得方法： [Inspiring php クラス](/knowledge/inspiring-php-class/)
+- users テーブル： おそらく、 Laravel にデフォルトで入っているはずです
 
 </details>
-
-<details>
-<summary role="button" class="outline">users テーブルについて</summary>
-
-Laravel が最初から用意してくれるテーブルのひとつですが、もし用意されていない場合は、作成してください。  
-独自に作成する場合は、 migration ファイルの up() メソッドは、ユーザー名があれば、とりあえず十分です：
-
-```php
-    public function up(): void
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-    }
-```
-
-</details>
-
 
 <details>
 <summary role="button" class="outline">便利なアサーションの例</summary>
@@ -226,14 +191,12 @@ class DatabaseSeeder extends Seeder
 
 以前書いたように、 DDL 操作の全履歴を残せるのが、 Laravel のマイグレーションの強みです。
 
-一方、 DML （データの CRUD 操作）は、 web アプリサービスの中で処理されるものであり、それらをいちいち残しておくことは、あまり無さそうです。
-
-とはいえ、初期データや、マスタデータ、テストでのエッジケースなど、いくつかの場合、 DML を持っておきたい場合があります。
-
+一方、 DML （データの CRUD 操作）は、 web アプリサービスの中で処理されるものであり、それらをいちいち残しておくことは、あまり無さそうです。  
+とはいえ、初期データや、マスタデータ、テストでのエッジケースなど、いくつかの場合、 DML を持っておきたい場合があります。  
 これを残せる仕組みが、 Seeding です。
 
 > [!Note]
-> と、思っていたのですが、実際はマイグレーションファイルに直接初期データを入れる（DML操作をする）ことも、よくあるそうです。
+> と、思っていたのですが、実際はマイグレーションファイルに、直接初期データを書く（DML操作をする）ことも、よくあるそうです。
 
 ### Seeding について
 
@@ -255,19 +218,32 @@ php artisan migrate:fresh --seed
 php artisan db:seed UserSeeder
 ``` 
 
-また、テストの中で実行したい場合もあります。  
+
+なお、今回は `Inspiring::quotes()` メソッドを利用したので、データはありましたが、ダミーデータを入れたい場合もあるでしょう。  
+その場合は、ファクトリーという仕組みがあります。
+
+今後、ファクトリーをテーマとした問題も予定しています。
+
+### テストでの初期設定の実行
+
+TestCase クラスの中で、以下のようにプロパティを設定することで、テスト時のセットアップ時に、初期設定（DatabaseSeeder）のシーディングを実行してくれます。
+
+```php
+class CountLegendsTest extends TestCase
+{
+    use RefreshDatabase;
+    protected $seed = true;
+    ...
+}
+```
+
+また、テストの中で初期設定（DatabaseSeeder）に設定していない Seeder ファイルを実行したい場合もあるかもしれません。  
 その際は、テストメソッドの中で、以下のように書きます。
 
 ```php
 $this->seed(UserSeeder::class);
 $this->assert...
 ```
-
-
-なお、今回は `Inspiring::quotes()` メソッドを利用したので、データはありましたが、ダミーデータを入れたい場合もあるでしょう。  
-その場合は、ファクトリーという仕組みがあります。
-
-今後、ファクトリーをテーマとした問題も予定しています。
 
 </details>
 

@@ -47,6 +47,8 @@ Artisan::command('inspire', function () {
 Laravel のバージョンによって多少違うかもしれませんが、私の環境では、以下のファイルにありました。  
 `/vendor/laravel/framework/src/Illuminate/Foundation/Inspiring.php`
 
+## 名言の出力方法
+
 内部の実装を読むと、以下のコマンドを呼び出せば、 Collection 型の名言の集合が得られます。
 
 ```php
@@ -55,9 +57,6 @@ $quotes = \Illuminate\Foundation\Inspiring::quotes();
 
 以下は、その抜粋です。  
 もし将来、この class が消えてしまったら、以下を使ってください。
-
-<details>
-<summary role="button" class="outline">名言の Collection</summary>
 
 ```php
 return new \Illuminate\Support\Collection([
@@ -75,6 +74,24 @@ return new \Illuminate\Support\Collection([
 ]);
 ```
 
-</details>
+## 名言だけの出力・偉人だけの出力
 
+名言とそれを言った偉人は、 `-` で区切られているので、これで `explode()` すれば名言と偉人を分けられます。
+
+```php
+[$quote, $legend] = explode('-', 'We must ship. - Taylor Otwell');
+$quote = trim($quote);
+$legend = trim($legend);
+```
+
+Collection 型は、 `map()` メソッドが使えます。
+
+```php
+// 重複を除いた偉人の名前の集合
+$legends = \Illuminate\Foundation\Inspiring::quotes()->map(function ($quote_legend){
+    [$quote, $legend] = explode('-', 'We must ship. - Taylor Otwell');
+    $legend = trim($legend);
+    return $legend;
+})->unique();
+```
 

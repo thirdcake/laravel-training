@@ -24,6 +24,16 @@
         "text": "HTTP ステータスコードが $code に等しいか",
         "src": "HTTP テスト"
     },
+    "assertJsonCount": {
+        "args": "$count, $key=null",
+        "text": "レスポンスされた JSON の（$key の）数が $count か",
+        "src": "HTTP テスト"
+    },
+    "assertJsonIsArray": {
+        "args": "",
+        "text": "レスポンスされた JSON が Array か",
+        "src": "HTTP テスト"
+    },
     "assertDatabaseCount": {
         "args": "$table_name, $int",
         "text": "$table_name テーブルに $int 個のデータが入っているか",

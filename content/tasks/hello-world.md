@@ -17,18 +17,11 @@ params:
 
 
 <details>
-<summary role="button" class="outline">環境構築</summary>
+<summary role="button" class="outline">背景知識</summary>
 
-知らない分野で、いきなり環境構築は難しいかもしれませんが、 Laravel 単体であれば、入門者でも比較的簡単に作成可能と思います。
-
-当サイトでのオススメの構築方法は、 [環境構築について](/knowledge/env-construction/) をお読みください。
-
-</details>
-
-<details>
-<summary role="button" class="outline">テストについて</summary>
-
-当サイトで使うレベルのテストについては、 [テストについて](/knowledge/what-is-test/) というページに、簡単にまとめています。
+- [環境構築について](/knowledge/env-construction/)
+- [テストについて](/knowledge/what-is-test/)
+- ルーティングファイルの位置： `routes/web.php`
 
 </details>
 
@@ -43,13 +36,6 @@ params:
 
 </details>
 
-<details>
-<summary role="button" class="outline">ルーティングファイルの位置</summary>
-
-ルーティングファイルは、 `routes/web.php` にあります。
-
-</details>
-
 ## 解答例
 
 <details>
@@ -59,6 +45,11 @@ params:
 - Laravel v13.7.0
 - PHP 8.4
 - PHPUnit
+
+テスト：
+
+1. `/hello` で HTTP ステータスコード200を返すか
+2. `Hello World!` を返すか
 
 > [!Note]
 > この問題は、最初の問題なので、特に小さいステップで進めます。  
@@ -118,10 +109,7 @@ routes/web.php:
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/hello', function () {
-    return 'この時点では、何を返しても良い';
-});
-
+Route::get('/hello', fn() => 'この時点では、何を返しても良い');
 ```
 
 テストを再度実行します。  
@@ -148,6 +136,7 @@ tests/Feature/HelloTest.php:
     public function test_hello_world(): void
     {
         $response = $this->get('/hello');
+        $response->assertStatus(200);
         $response->assertSeeText('Hello World!');
     }
 ```
@@ -165,9 +154,7 @@ php artisan test tests/Feature/HelloTest.php
 routes/web.php:
 
 ```php
-Route::get('/hello', function () {
-    return 'Hello World!';
-});
+Route::get('/hello', fn() => 'Hello World!');
 ```
 
 テストの成功を確認します。  
