@@ -117,34 +117,33 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $authors = Inspiring::quotes()->map(function (string $quote_author): string
-        {
-            [$quote, $author] = explode('-', $quote_author);
-            $author = trim($author);
-            return $author;
-        });
-        $unique = $authors->unique();
-        $authors_data = $unique->map(function (string $name):array
-        {
-            $now = now();
-            $email = strtolower(str_replace(' ', '-', $name)) . '@example.com';
-            $password = Str::random(60);
-            return [
-                'name' => $name,
-                'email' => $email,
-                'password' => $password,
-                'created_at' => $now,
-                'updated_at' => $now,
-            ];
-        });
+        $authors_data = Inspiring::quotes()
+            ->map(function (string $quote_author): string {
+                [$quote, $author] = explode('-', $quote_author);
+                $author = trim($author);
+                return $author;
+            })
+            ->unique()
+            ->map(function (string $name):array {
+                $now = now();
+                $email = strtolower(str_replace(' ', '-', $name));
+                $password = Str::random(60);
+                return [
+                    'name' => $name,
+                    'email' => $email . '@example.com',
+                    'password' => $password,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ];
+            });
         User::insert($authors_data->toArray());
     }
 }
 ```
 
 > [!Note]
-> ちょっと長くなってしまいましたが、やっていることは複数のデータを insert しているだけです。  
-> もちろん、 foreach で繰り返して、 `User::create([]);` で1つずつデータを渡しても問題ありません。  
+> ちょっと長くなってしまいましたが、やっていることは複数のデータを配列にして insert しているだけです。  
+> もう少し可読性の良い、 Factory という仕組みをこのあと紹介します。  
 > users テーブルのスキーマについては、 Users のマイグレーションファイルをご覧ください。
 
 今回は、初期設定なので、 `database/seeders/DatabaseSeeder.php` に登録します。
@@ -174,8 +173,36 @@ class DatabaseSeeder extends Seeder
 
 ### Refactor
 
-Factory を使って、可読性をよくします。
+Factory を使って、可読性をよくします。  
+User に対するファクトリーとして、 `database/factories/UserFactory.php` がすでに用意されています。  
+パスワードなどは、これを利用することで、シーダーファイルへの記載が減ります。
 
+シーダーファイルを、ファクトリーを使う方法で書き換えます。  
+database/seeders/UserSeeder.php:
+
+```php
+use Illuminate\Database\Eloquent\Factories\Sequence;
+...
+    public function run(): void
+    {
+        $authors_data = Inspiring::quotes()
+            ->map(fn($s)=>trim(explode('-', $s)[1]))
+            ->unique()
+            ->map(function (string $name):array {
+                $email = strtolower(str_replace(' ', '-', $name));
+                return [
+                    'name' => $name,
+                    'email' => $email . '@example.com',
+                ];
+            });
+        User::factory()
+            ->count($authors_data->count())
+            ->state(new Sequence(...$authors_data))
+            ->create();
+    }
+```
+
+テストを実行して、 Green のままであることを確認します。
 
 </details>
 
@@ -191,16 +218,16 @@ Factory を使って、可読性をよくします。
 
 以前書いたように、 DDL 操作の全履歴を残せるのが、 Laravel のマイグレーションの強みです。
 
-一方、 DML （データの CRUD 操作）は、 web アプリサービスの中で処理されるものであり、それらをいちいち残しておくことは、あまり無さそうです。  
-とはいえ、初期データや、マスタデータ、テストでのエッジケースなど、いくつかの場合、 DML を持っておきたい場合があります。  
-これを残せる仕組みが、 Seeding です。
+一方、 DML （データの CRUD 操作）は、 web アプリサービスの中で処理されるものであり、それらをいちいち残しておくことにメリットは、あまり無さそうです。  
+とはいえ、初期データや、マスタデータ、テストでのダミーデータなど、いくつかの場面で、 DML を使いまわしたいこともあります。  
+これを PHP ファイルとして残す仕組みが、 Seeding です。
 
 > [!Note]
-> と、思っていたのですが、実際はマイグレーションファイルに、直接初期データを書く（DML操作をする）ことも、よくあるそうです。
+> と、思っていたのですが、実務では、マイグレーションファイルに、直接初期データを書く（DML操作をする）ことも、よくあることなのだそうです。
 
 ### Seeding について
 
-Seeding ファイル自体は、 `database/seeders/` ディレクトリ下に作られます。
+シーダーファイルは、 `database/seeders/` ディレクトリ下に作られます。
 
 その中で、 `database/seeders/DatabaseSeeder.php` だけは特別なものです。
 
@@ -218,12 +245,6 @@ php artisan migrate:fresh --seed
 php artisan db:seed UserSeeder
 ``` 
 
-
-なお、今回は `Inspiring::quotes()` メソッドを利用したので、データはありましたが、ダミーデータを入れたい場合もあるでしょう。  
-その場合は、ファクトリーという仕組みがあります。
-
-今後、ファクトリーをテーマとした問題も予定しています。
-
 ### テストでの初期設定の実行
 
 TestCase クラスの中で、以下のようにプロパティを設定することで、テスト時のセットアップ時に、初期設定（DatabaseSeeder）のシーディングを実行してくれます。
@@ -237,13 +258,28 @@ class CountLegendsTest extends TestCase
 }
 ```
 
-また、テストの中で初期設定（DatabaseSeeder）に設定していない Seeder ファイルを実行したい場合もあるかもしれません。  
+また、テストの中で初期設定（DatabaseSeeder）に設定していない Seeder ファイルを実行したい場合もあるかもしれません。（ダミーデータを入れたい場合など）  
 その際は、テストメソッドの中で、以下のように書きます。
 
 ```php
 $this->seed(UserSeeder::class);
 $this->assert...
 ```
+
+### ファクトリーについて
+
+ファクトリーという言葉を検索するときには、注意してください。  
+一般的なプログラミングの用語としての「ファクトリー」は、ファクトリーパターンという、インスタンス生成の仕組みを指す場合もあります。  
+検索するときは、「Laravel Factory 使い方」など、 Laravel のファクトリーを調べてください。
+
+さて、 Laravel のファクトリーは、モデルのインスタンスを作成したい場合に使えるものです。  
+あくまでも「モデル」作成に使えるというところがポイントです。  
+必ずしもデータベースに保存（永続化）する必要のないデータのモデル（たとえば、テスト中のダミーデータなど）にも利用できます。
+
+データベースに永続化させたい場合は、 `create()` メソッドを使います。  
+一方、ダミーデータの場合は、 `make()` メソッドを使ってください。
+
+今回の問題では、初期データとして保存する必要があるため、 `create()` メソッドを使っています。
 
 </details>
 
