@@ -20,7 +20,7 @@ params:
 <details>
 <summary role="button" class="outline">背景知識</summary>
 
-- [JSON](https://www.php.net/manual/ja/book.json.php) （PHP マニュアル）
+- Laravel で JSON 形式を返す方法： [公式ドキュメントの HTTP Responses](https://laravel.com/docs/responses)
 - 偉人たちの取得方法： [Inspiring php クラス](/knowledge/inspiring-php-class/)
 
 </details>
@@ -52,7 +52,7 @@ params:
 1. `/api/legends/index` にアクセスして、 JSON が返ってくるか
 1. `/api/legends/index` にアクセスして、返ってきた JSON の個数が初期データの個数と同じか
 
-### （前処理）Inspiring::quotes() で偉人一覧を作り、その重複しない数を調べる
+### （前準備）Inspiring::quotes() で偉人一覧を作り、その重複しない数を調べる
 
 人数が分かれば良いので、数字を表示したあと成功だけする Unit テストを作ります。  
 bash:

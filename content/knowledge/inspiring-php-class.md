@@ -18,7 +18,7 @@ php artisan inspire
 なんのためにあるのかは、調べても分からなかったのですが、この機能は昔からあったそうです。  
 今後も残るだろうと思っています。
 
-当サイトでは、 Model などの使い方を学ぶときに、この機能を使います。
+当サイトでは、 Seeder などの使い方を学ぶときに、この機能を使います。
 
 ## 名言はどこにある？
 
@@ -110,19 +110,15 @@ return new \Illuminate\Support\Collection([
 
 ```php
 [$quote, $legend] = explode('-', 'We must ship. - Taylor Otwell');
-$quote = trim($quote);
-$legend = trim($legend);
+$quote = trim($quote);  // We must ship.
+$legend = trim($legend);  // Taylor Otwell
 ```
 
 Collection 型は、 `map()` メソッドが使えます。  
-これを利用して、たとえば以下のように、偉人名だけを取り出し、重複を省くことができます。
+これを利用して、たとえば以下のように、偉人名だけを取り出し、重複を省くことができます：
 
 ```php
 // 重複を除いた偉人の名前の集合
-$legends = \Illuminate\Foundation\Inspiring::quotes()->map(function ($quote_legend){
-    [$quote, $legend] = explode('-', $quote_legend);
-    $legend = trim($legend);
-    return $legend;
-})->unique();
+$legends = \Illuminate\Foundation\Inspiring::quotes()->map(fn($str) => trim(explode('-', $str)[1]))->unique();
 ```
 

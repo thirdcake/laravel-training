@@ -24,6 +24,11 @@
         "text": "HTTP ステータスコードが $code に等しいか",
         "src": "HTTP テスト"
     },
+    "assertJson": {
+        "args": "$data",
+        "text": "レスポンスされた JSON が $data を含むか",
+        "src": "HTTP テスト"
+    },
     "assertJsonCount": {
         "args": "$count, $key=null",
         "text": "レスポンスされた JSON の（$key の）数が $count か",

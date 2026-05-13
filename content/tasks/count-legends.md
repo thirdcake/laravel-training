@@ -4,7 +4,7 @@ date: '2026-05-08T10:29:31+09:00'
 draft: false
 weight: 350
 params:
-    subtitle: 'Seeding の基礎'
+    subtitle: 'Seeding Factory の基礎'
 ---
 
 ## 問題
@@ -174,7 +174,7 @@ class DatabaseSeeder extends Seeder
 
 ### Refactor
 
-特にありません。
+Factory を使って、可読性をよくします。
 
 
 </details>
