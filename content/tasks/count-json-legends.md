@@ -20,7 +20,7 @@ params:
 <details>
 <summary role="button" class="outline">背景知識</summary>
 
-- Laravel で JSON 形式を返す方法： [公式ドキュメントの HTTP Responses](https://laravel.com/docs/responses)
+- Laravel で JSON 形式を返す方法： [或るリクエストの一生](/knowledge/a-request-lifecycle/)
 - 偉人たちの取得方法： [Inspiring php クラス](/knowledge/inspiring-php-class/)
 
 </details>
