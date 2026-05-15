@@ -13,14 +13,11 @@ use You;
 
 class LaravelTrainingTest extends TestCase
 {
-    /**
-     * このサイトはあなたに適しているでしょうか？
-     */
-    public function test_this_site_is_suitable_for_you (): void
+    public function test_このサイトはあなたに適しているでしょうか (): void
     {
         $traits = new Collection([
             'コマンドライン操作にそれほど恐怖感が無い',
-            'デザインよりも、データ操作に興味がある',
+            'データベース設計やデータ操作に興味がある',
             'エラーが全部解消された！ という達成感を楽しめる',
         ]);
 

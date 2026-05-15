@@ -21,7 +21,7 @@ Laravel では、最初から PHPUnit や Pest が使えます。
 1. テストファイルを編集する
 1. テストを実行する
 
-### Feature テストファイルの作り方
+### Feature テストファイルの作成
 
 まずは、 Laravel の機能を使う Feature テストの作り方を覚えましょう。  
 （慣れてきたら、ヘルプなどを使って Unit テストの方法も調べてください）
@@ -35,10 +35,10 @@ php artisan make:test Http/Controllers/PostControllerTest
 # => tests/Feature/Http/Controllers/PostControllerTest.php が作成される
 ```
 
-テスト名には、名前を付けるときのルール（命名規約）があります。
+テストには、命名規約（名前を付けるときのルール）があります。
 
-- 大文字で始めてください
-- 最後に `Test` を付けてください
+- テスト名は、大文字で始めてください
+- テスト名の最後に `Test` を付けてください
 
 上記のように、 PostControllerTest だったり、 UserTest だったり、 HelloTest だったりします。
 
@@ -48,7 +48,7 @@ php artisan make:test Http/Controllers/PostControllerTest
 php artisan make:test --help
 ```
 
-### Feature テストファイルの書き方
+### Feature テストファイルの編集
 
 上記のコマンドで作成されたひな型のファイルは、 Laravel のバージョンによって、多少違うかもしれませんが、おおよそ以下のようになっているはずです。  
 tests/Feature/ExampleTest.php:
@@ -79,9 +79,9 @@ class ExampleTest extends TestCase
 - テスト class は、 `Tests\TestCase` を extends します
 - `Tests\TestCase->assertXxxx` というアサーションメソッドがたくさんあります
 - `Tests\TestCase->get('/routing')` で `https://example.com/routing` にアクセスしたときのレスポンスに相当する `TestResponse` オブジェクトが得られます
-    - `TestRequest` オブジェクトから、さまざまなアサーションメソッドが使えます
+    - `TestResponse` オブジェクトから、さまざまなアサーションメソッドが使えます
 
-アサーションについては、 [アサーションの調べ方](/assertions-list/) も合わせてご確認ください。
+アサーションについては、 [アサーションの調べ方](/assertions-list/) も合わせて読んでみてください。
 
 データベースをセットアップすることも可能です。  
 その場合は、 class の中で、 `use RefreshDatabase;` を利用します。
@@ -91,6 +91,20 @@ class ExampleTest extends TestCase
 {
     use RefreshDatabase;
     public function test...
+}
+```
+
+初期データのシーダー（ `database/seeders/DatabaseSeeder.php` ）を実行することも可能です。
+
+```php
+class ExampleTest extends TestCase
+{
+    use RefreshDatabase;
+    public function test...
+    {
+        $this->seed();
+        ...
+    }
 }
 ```
 
@@ -118,5 +132,120 @@ php artisan test ./tests/Feature/HelloTest.php
 - Green: 多少強引にでも、成功させる
 - Refactor: 読みやすく書き換えたり、重複処理を整理したりする
 
-詳しくは、 [テスト駆動入門](/knowledge/test-driven-primer/) を参照してください。
+### Green の表示
+
+まずは、成功（Green）するとどうなるか、確認しておきましょう。  
+テストを作ります。  
+bash:
+
+```bash
+php artisan make:test TrueIsTrueTest
+```
+
+テストを編集します。  
+tests/Feature/TrueIsTrueTest.php:
+
+```php
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class TrueIsTrueTest extends TestCase
+{
+    public function test_必ず成功するテスト(): void
+    {
+        $this->assertTrue(true);
+    }
+}
+```
+
+上記は、`true` が、 `true` であるかどうかテストしています。
+
+テストを実行します。  
+bash:
+
+```bash
+php artisan test tests/Feature/TrueIsTrueTest.php
+```
+
+多少、バージョンによっても変わるかもしれませんが、わたしの環境では、以下のようになりました。  
+`PASS` のところが緑色になっていました。
+
+```txt
+   PASS  Tests\Feature\TrueIsTrueTest
+  ✓ 必ず成功するテスト                                                   0.42s  
+
+  Tests:    1 passed (1 assertions)
+  Duration: 0.71s
+```
+
+### Red の表示
+
+今度は、あえて失敗するテストを書いてみます。  
+（あえて失敗するテストは、これから、たくさん書くことになります。）  
+bash:
+
+```bash
+php artisan make:test FalseIsNotTrueTest
+```
+
+テストファイルを編集します。  
+tests/Feature/FalseIsNotTrueTest.php:
+
+```php
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+class FalseIsNotTrueTest extends TestCase
+{
+    public function test_必ず失敗するテスト(): void
+    {
+        $this->assertTrue(false);
+    }
+}
+```
+
+テストを実行します。  
+bash:
+
+```bash
+php artisan test tests/Feature/FalseIsNotTrueTest.php
+```
+
+これもバージョンによって多少変わるかもしれませんが、私の環境では、 `FAILED` のところが赤く表示され、きちんと失敗したことがわかります。
+
+```txt
+   FAIL  Tests\Feature\FalseIsNotTrueTest
+  ⨯ 必ず失敗するテスト                                                   0.41s  
+  ────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\FalseIsNotTrueTest > 必ず失敗するテスト                
+  Failed asserting that false is true.
+
+  at tests/Feature/FalseIsNotTrueTest.php:11
+      7▕ class FalseIsNotTrueTest extends TestCase
+      8▕ {
+      9▕     public function test_必ず失敗するテスト(): void
+     10▕     {
+  ➜  11▕         $this->assertTrue(false);
+     12▕     }
+     13▕ }
+     14▕ 
+
+  1   tests/Feature/FalseIsNotTrueTest.php:11
+
+
+  Tests:    1 failed (1 assertions)
+  Duration: 0.66s
+```
+
+エラー文は、最初のうちはビビるかもしれませんが、必要以上に怖がらないでください。  
+むしろ、失敗するつもりのテストで、エラーが表示されない方が、困ります。
+
+当サイトでは、テストを利用して、 Laravel に入門します。  
+テスト駆動で入門することの意図については、 [テスト駆動入門](/knowledge/test-driven-primer/) を参照してください。
 

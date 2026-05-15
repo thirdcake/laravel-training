@@ -4,6 +4,11 @@
         "text": "$condition が true か",
         "src": "PHPUnit"
     },
+    "assertSame": {
+        "args": "$expected, $actual",
+        "text": "$expected === $actual か",
+        "src": "PHPUnit"
+    },
     "assertContains": {
         "args": "$needle, $haystack",
         "text": "$haystack に $needle が見つかるか",
@@ -34,6 +39,12 @@
         "text": "レスポンスされた JSON の（$key の）数が $count か",
         "src": "HTTP テスト"
     },
+    "assertJsonFragment": {
+        "args": "$array",
+        "text": "レスポンスされた JSON に $array と同じ部分があるか",
+        "src": "HTTP テスト"
+    },
+
     "assertJsonIsArray": {
         "args": "",
         "text": "レスポンスされた JSON が Array か",
